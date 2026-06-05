@@ -1,0 +1,72 @@
+#include "arduino_secrets.h"
+#include "thingProperties.h"
+
+// Relay Pins
+#define RELAY1_PIN 13   // Living Room Light
+#define RELAY2_PIN 12   // Bedroom Light
+#define RELAY3_PIN 14   // Fan
+#define RELAY4_PIN 27   // Outdoor Light
+
+void setup() {
+
+  Serial.begin(115200);
+  delay(1500);
+
+  // Configure Relay Pins
+  pinMode(RELAY1_PIN, OUTPUT);
+  pinMode(RELAY2_PIN, OUTPUT);
+  pinMode(RELAY3_PIN, OUTPUT);
+  pinMode(RELAY4_PIN, OUTPUT);
+
+  // Initially OFF
+  digitalWrite(RELAY1_PIN, LOW);
+  digitalWrite(RELAY2_PIN, LOW);
+  digitalWrite(RELAY3_PIN, LOW);
+  digitalWrite(RELAY4_PIN, LOW);
+
+  // Initialize Arduino IoT Cloud
+  initProperties();
+
+  ArduinoCloud.begin(ArduinoIoTPreferredConnection);
+
+  setDebugMessageLevel(2);
+  ArduinoCloud.printDebugInfo();
+
+  Serial.println("Smart Home Automation Started");
+}
+
+void loop() {
+  ArduinoCloud.update();
+}
+
+// Relay 1 - Living Room Light
+void onRelay1Change() {
+  digitalWrite(RELAY1_PIN, relay1 ? HIGH : LOW);
+
+  Serial.print("Living Room Light: ");
+  Serial.println(relay1 ? "ON" : "OFF");
+}
+
+// Relay 2 - Bedroom Light
+void onRelay2Change() {
+  digitalWrite(RELAY2_PIN, relay2 ? HIGH : LOW);
+
+  Serial.print("Bedroom Light: ");
+  Serial.println(relay2 ? "ON" : "OFF");
+}
+
+// Relay 3 - Fan
+void onRelay3Change() {
+  digitalWrite(RELAY3_PIN, relay3 ? HIGH : LOW);
+
+  Serial.print("Fan: ");
+  Serial.println(relay3 ? "ON" : "OFF");
+}
+
+// Relay 4 - Outdoor Light
+void onRelay4Change() {
+  digitalWrite(RELAY4_PIN, relay4 ? HIGH : LOW);
+
+  Serial.print("Outdoor Light: ");
+  Serial.println(relay4 ? "ON" : "OFF");
+}
