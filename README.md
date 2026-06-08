@@ -46,6 +46,10 @@ The ESP32 connects to Wi-Fi and Arduino IoT Cloud. When a user toggles a switch 
 * Mobile application integration
 * Scheduling and automation routines
 
+<img width="1536" height="1024" alt="Circuitdiagram" src="https://github.com/user-attachments/assets/307099e5-543a-4cb5-a3c9-e04f237fb61f" />
+
+  
+
 ## Author
 
 Bharani Dharan
